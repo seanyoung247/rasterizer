@@ -7,18 +7,26 @@ class rasterizer {
     }
 
     startFrame() {
-        const width = canvas.clientWidth
-        const height = canvas.clientHeight;
+        const width = this._canvas.clientWidth
+        const height = this._canvas.clientHeight;
         this._context.canvas.width = width;
         this._context.canvas.height = height;
-        // Get screen buffer
-        this._buffer = this._context.getImageData(0,0,width,height);
+        // Generate an empty 32bit buffer for this frame
+        this._buffer = new Uint32Array(width * height);
+        //this._buffer = new Uint32Array(this._context.getImageData(0,0,width,height).data.buffer);
     }
-    putPixel() {}
-    drawLine() {}
-    drawTriangle() {}
+
+        putPixel(x, y, colour) {
+            
+        }
+        drawLine() {}
+        drawTriangle() {}
+
     endFrame() {
         // Copy screen buffer back to screen
+        this._context.putImageData(this._buffer,0,0);
+        // Destroy temporary framebuffer
+        this._buffer = null;
     }
 }
 
