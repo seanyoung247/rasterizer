@@ -27,17 +27,29 @@ class rasterizer {
         this._buffer.pixels = new Uint32Array(this._buffer.image.data.buffer);
     }
 
-        putPixel(x, y, colour) {
-            
+    /**
+     * Sets the colour of a single pixel to colour
+     * @param x - The x coordinate of the pixel
+     * @param y - The y coordinate of the pixel
+     * @param colour - 32Bit colour in ABGR format
+     */
+    putPixel(x, y, colour) {
+        const width = this._canvas.clientWidth;
+        const height = this._canvas.clientHeight;
+        if (this._inBounds(x,y,width,height)) {
+            const index = x + (y * width);
+            this._buffer.pixels[index] = colour;
         }
-        drawLine() {}
-        drawTriangle() {}
+    }
+    drawLine() {}
+    drawTriangle() {}
 
+    /**
+     * Completes a frame and shows it on-screen
+     */
     endFrame() {
         // Copy screen buffer back to screen
-        this._context.putImageData(this._buffer,0,0);
-        // Destroy temporary framebuffer
-        this._buffer = null;
+        this._context.putImageData(this._buffer.image,0,0);
     }
 }
 
