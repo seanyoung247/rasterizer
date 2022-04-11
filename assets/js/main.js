@@ -10,8 +10,14 @@ let renderer = null;
 function frame() {
 
     renderer.startFrame();
+
+    for (let x = 10; x < 100; x++) {
+        for (let y = 10; y < 100; y++) {
+            renderer.putPixel(x,y,0xFFFF0000);
+        }
+    }
         
     renderer.endFrame();
-    
-    window.requestAnimationFrame(this);
+
+    //window.requestAnimationFrame(frame);
 }
