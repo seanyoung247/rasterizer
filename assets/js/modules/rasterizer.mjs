@@ -1,9 +1,12 @@
 
 class rasterizer {
     constructor(canvas) {
-        this._canvas = screen;
+        this._canvas = canvas;
         this._context = canvas.getContext("2d");
-        this._buffer = null;
+        this._buffer = {
+            image: null,
+            pixels: null
+        };
     }
 
     _inBounds(x,y,w,h) {
@@ -14,13 +17,14 @@ class rasterizer {
      * Prepares for rendering a frame
      */
     startFrame() {
-        const width = this._canvas.clientWidth
+        // Ensure that the canvas pixel resolution matches the element size
+        const width = this._canvas.clientWidth;
         const height = this._canvas.clientHeight;
         this._context.canvas.width = width;
         this._context.canvas.height = height;
-        // Generate an empty 32bit buffer for this frame
-        this._buffer = new Uint32Array(width * height);
-        //this._buffer = new Uint32Array(this._context.getImageData(0,0,width,height).data.buffer);
+        // Grab an image object for the canvas and an array object of the raw pixels
+        this._buffer.image = this._context.getImageData(0,0,width,height);
+        this._buffer.pixels = new Uint32Array(this._buffer.image.data.buffer);
     }
 
         putPixel(x, y, colour) {
