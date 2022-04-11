@@ -3,7 +3,7 @@ import { Renderer } from "./modules/renderer.mjs"
 let renderer = null;
 
 (function () {
-    renderer = new rasterizer(document.getElementById("screen-view"));
+    renderer = new Renderer(document.getElementById("screen-view"));
     window.requestAnimationFrame(frame);
 })();
 
