@@ -1,5 +1,7 @@
-
-class rasterizer {
+/**
+ * 
+ */
+class Renderer {
     constructor(canvas) {
         this._canvas = canvas;
         this._context = canvas.getContext("2d");
@@ -41,8 +43,6 @@ class rasterizer {
             this._buffer.pixels[index] = colour;
         }
     }
-    drawLine() {}
-    drawTriangle() {}
 
     /**
      * Completes a frame and shows it on-screen

@@ -1,5 +1,5 @@
 
-import { rasterizer } from "./modules/rasterizer.mjs"
+import { Renderer } from "./modules/renderer.mjs"
 let renderer = null;
 
 (function () {
