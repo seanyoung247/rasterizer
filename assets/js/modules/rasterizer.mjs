@@ -6,6 +6,13 @@ class rasterizer {
         this._buffer = null;
     }
 
+    _inBounds(x,y,w,h) {
+        return (x >= 0 && x < w && y >= 0 && y < h);
+    }
+
+    /**
+     * Prepares for rendering a frame
+     */
     startFrame() {
         const width = this._canvas.clientWidth
         const height = this._canvas.clientHeight;
