@@ -41,7 +41,52 @@ export class Color {
     get alpha() {return this._channels[3];}
     set alpha(val) {this._channels[3] = val;}
 
+    _hexC(ch) {
+        return this._channels[ch].toString(16).padStart(2, '0');
+    }
+    /**
+     * Returns the color in css Hex string format
+     * @returns String color in hex format
+     */
+    cssHex() {
+        return ('#' + this._hexC(0) + this._hexC(1) + this._hexC(2));
+    }
+    /**
+     * Returns the color in css hex string format with alpha channel
+     * @returns String color in hex format
+     */
+    cssHexA() {
+        return ('#' + this._hexC(0) + this._hexC(1) + this._hexC(2) + this._hexC(3));
+    }
+    /**
+     * Returns the color in css RGB() format
+     * @returns String RGB
+     */
+    cssRGB() {
+        return `rgb(${this._channels[0]},${this._channels[1]},${this._channels[2]})`;
+    }
+    /**
+     * Returns the color in css RGBA() format
+     * @returns String RGBA
+     */
+    cssRGBA() {
+        return `rgba(${this._channels[0]},${this._channels[1]},${this._channels[2]},${this._channels[3]})`;
+    }
+
+    /**
+     * Sets the color from a hex string
+     * @param str Hex string
+     */
+    fromString(str) {
+        // If there's a leading # remove it.
+        if (str[0] === '#') str = str.substring(1);
+        this.color = parseInt( 
+            // Does the string provided have an alpha channel?
+            ((str.length > 6) ? str + 'FF' : str ), 16
+        );
+    }
 }
+
 /**
  * Renders 2D graphics to a canvas element
  */
