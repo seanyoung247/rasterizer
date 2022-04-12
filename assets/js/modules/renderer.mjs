@@ -30,6 +30,17 @@ export class Color {
     get color() {
         return this._color[0];
     }
+
+    // Accessors
+    get red() {return this._channels[0];}
+    set red(val) {this._channels[0] = val;}
+    get green() {return this._channels[1];}
+    set green(val) {this._channels[1] = val;}
+    get blue() {return this._channels[2];}
+    set blue(val) {this._channels[2] = val;}
+    get alpha() {return this._channels[3];}
+    set alpha(val) {this._channels[3] = val;}
+
 }
 /**
  * Renders 2D graphics to a canvas element
