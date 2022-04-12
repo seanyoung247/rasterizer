@@ -143,6 +143,43 @@ export class Renderer {
             this._buffer.pixels[index] = color.color;
         }
     }
+    
+    /**
+     * Draws a line between two points of the specified color using Brenshams algorithm
+     *  @param x1 - The x coordinate of the line starting point
+     *  @param y1 - The y coordinate of the line starting point
+     *  @param x2 - The x coordinate of the line ending point
+     *  @param y2 - The y coordinate of the line ending point
+     *  @param color - Color object defining color of line
+     */
+    drawLine(x1, y1, x2, y2, color) {
+        // Workout delta changes for each step
+        let deltaX = Math.abs(x2 - x1);
+        let deltaY = Math.abs(y2 - y1);
+        // Step distance
+        let stepX = Math.sign(x2 - x1);
+        let stepY = Math.sign(y2 - y1);
+        // Initialise step error to line slope
+        let error = deltaX - deltaY;
+        
+        while (true) {
+            this.putPixel(x1, y1, color);
+            // Reached end point?
+            if ((x1 === x2) && (y1 === y2)) break;
+            
+            const e2 = error * 2;
+            // Next step is closer to X
+            if (e2 > -deltaY) {
+                error -= deltaY;
+                x1 += stepX;
+            }
+            // Next step is closer to Y
+            if (e2 < deltaX) {
+                error += deltaX;
+                y1 += stepY;
+            }
+        }
+    }
 
     /**
      * Completes a frame and shows it on-screen
