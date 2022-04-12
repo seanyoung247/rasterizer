@@ -117,15 +117,18 @@ export class Renderer {
 
     /**
      * Prepares for rendering a frame
+     *  @param clear - Boolean, should the screen be cleared?
      */
-    startFrame() {
+    startFrame(clear = false) {
         // Ensure that the canvas pixel resolution matches the element size
         const width = this._canvas.clientWidth;
         const height = this._canvas.clientHeight;
         this._context.canvas.width = width;
         this._context.canvas.height = height;
+        
+        if (clear) this._context.clearRect(0, 0, width, height);
         // Grab an image object for the canvas and a typed array object of the raw pixels
-        this._buffer.image = this._context.getImageData(0,0,width,height);
+        this._buffer.image = this._context.getImageData(0, 0, width, height);
         this._buffer.pixels = new Uint32Array(this._buffer.image.data.buffer);
     }
 
