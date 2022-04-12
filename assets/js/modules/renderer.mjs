@@ -1,4 +1,15 @@
 /**
+ * Helper function to convert an RGB(A) color into a 32bit one
+ * @param red Red color channel
+ * @param green Green color channel
+ * @param blue Blue color channel
+ * @param alpha (optional) Alpha channel
+ */
+export function RGBA(red, green, blue, alpha = 255) {
+    return ( (red << 24) | (green << 16) | (blue << 8) | alpha );
+}
+
+/**
  * Encapsulates a colour in RGBA format
  */
 export class Color {

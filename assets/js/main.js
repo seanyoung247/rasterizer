@@ -1,5 +1,5 @@
 
-import { Renderer, Color } from "./modules/renderer.mjs"
+import { Renderer, Color, RGBA } from "./modules/renderer.mjs"
 let renderer = null;
 
 (function () {
@@ -13,7 +13,7 @@ function frame() {
 
     for (let x = 10; x < 100; x++) {
         for (let y = 10; y < 100; y++) {
-            renderer.putPixel(x,y,new Color(0xFFFF0000));
+            renderer.putPixel(x,y,new Color(RGBA(255,0,0)));
         }
     }
         
