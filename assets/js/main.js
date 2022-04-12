@@ -16,7 +16,7 @@ window.addEventListener('mousedown', e => {
 
 function frame() {
 
-    renderer.startFrame();
+    renderer.startFrame(true);
 
     for (let x = 10; x < 100; x++) {
         for (let y = 10; y < 100; y++) {
