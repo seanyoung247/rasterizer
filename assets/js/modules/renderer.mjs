@@ -3,13 +3,14 @@
  */
 export class Color {
     static channels = {
-        red: 0, green: 1, blue: 2, alpha: 3
+        red: 0, green: 1, blue: 2, alpha: 3,
+        r: 0, g: 1, b: 2, a: 3
     }
     /**
      * Creates a new RGBA object
-     * @param color 32bit color code in ARGB format (Optional)
+     * @param color 32bit color code in RGBA format (Optional)
      */
-    constructor(color = 0xFF000000) {
+    constructor(color = 0xFF) {
         this._buffer = new ArrayBuffer(4);
         this._channels = new Uint8Array(this._buffer);
         this._color = new Uint32Array(this._buffer);
@@ -17,11 +18,14 @@ export class Color {
         this.color = color;
     }
 
+    /**
+     * Accepts a 32bit color in RGBA format
+     */
     set color(color) {
-        this._channels[0] = (color >> 16) & 0xFF;
-        this._channels[1] = (color >> 8) & 0xFF;
-        this._channels[2] = color & 0xFF;
-        this._channels[3] = (color >> 24) & 0xFF;
+        this._channels[0] = (color >> 24) & 0xFF;
+        this._channels[1] = (color >> 16) & 0xFF;
+        this._channels[2] = (color >> 8) & 0xFF;
+        this._channels[3] = color & 0xFF;
     }
     get color() {
         return this._color[0];
