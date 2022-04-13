@@ -32,7 +32,7 @@ export class Renderer {
 
     /**
      * Prepares for rendering a frame
-     *  @param clear - Boolean, should the screen be cleared?
+     *  @param {Boolean} clear - Optional, default false. If true screen is cleared
      */
     startFrame(clear = false) {
         // Ensure that the canvas pixel resolution matches the element size
@@ -49,52 +49,54 @@ export class Renderer {
 
     /**
      * Sets the colour of a single pixel to colour
-     * @param x - The x coordinate of the pixel
-     * @param y - The y coordinate of the pixel
-     * @param color - Color object defining color of pixel
+     * @param {Object} p - Point2D defining the pixel coordinates
+     * @param {Object} color - Color object defining color of pixel
      */
-    putPixel(x, y, color) {
+    putPixel(p, color) {
         const width = this._canvas.clientWidth;
         const height = this._canvas.clientHeight;
-        if (this._inBounds(x,y,width,height)) {
-            const index = x + (y * width);
+        if (this._inBounds(p.x, p.y, width, height)) {
+            const index = p.x + (p.y * width);
             this._buffer.pixels[index] = color.color;
         }
     }
     
     /**
      * Draws a line between two points of the specified color using Brenshams algorithm
-     *  @param x1 - The x screen coordinate of the line starting point
-     *  @param y1 - The y screen coordinate of the line starting point
-     *  @param x2 - The x screen coordinate of the line ending point
-     *  @param y2 - The y screen coordinate of the line ending point
+     *  @param {Object} p1 - Point2D for line starting point
+     *  @param {Object} p2 - Point2D for line ending point
      *  @param color - Color object defining color of line
      */
-    drawLine(x1, y1, x2, y2, color) {
+    drawLine(p1, p2, color) {
         // Workout delta changes for each step
-        let deltaX = Math.abs(x2 - x1);
-        let deltaY = Math.abs(y2 - y1);
+        let deltaX = Math.abs(p2.x - p1.x);
+        let deltaY = Math.abs(p2.y - p1.y);
         // Step distance
         let stepX = Math.sign(x2 - x1);
         let stepY = Math.sign(y2 - y1);
         // Initialise step error to line slope
         let error = deltaX - deltaY;
+        // Store current position
+        let x = p1.x;
+        let y = p1.y;
+        const eX = p2.x;
+        const eY = p2.y;
         
         while (true) {
-            this.putPixel(x1, y1, color);
+            this.putPixel(x, y, color);
             // Reached end point?
-            if ((x1 === x2) && (y1 === y2)) break;
+            if ((x === eX) && (y === eY)) break;
             
-            const e2 = error * 2;
+            const err2 = error * 2;
             // Next step is closer to X
-            if (e2 > -deltaY) {
+            if (err2 > -deltaY) {
                 error -= deltaY;
-                x1 += stepX;
+                x += stepX;
             }
             // Next step is closer to Y
-            if (e2 < deltaX) {
+            if (err2 < deltaX) {
                 error += deltaX;
-                y1 += stepY;
+                y += stepY;
             }
         }
     }

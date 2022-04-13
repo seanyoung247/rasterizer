@@ -1,5 +1,7 @@
 
-import { Renderer, Color, RGBA } from "./modules/renderer.mjs"
+import { Color, RGBA } from "./modules/types/color.mjs";
+import { Renderer } from "./modules/renderer.mjs";
+
 let renderer = null;
 let mX = 0;
 let mY = 0;
