@@ -111,9 +111,21 @@ export class Renderer {
         };
     }
 
+    //
+    // Helpers
+    //
+
+    // Checks a given x,y point is within the screen boundaries
     _inBounds(x,y,w,h) {
         return (x >= 0 && x < w && y >= 0 && y < h);
     }
+
+    // Returns a point on a line at a given time
+    _lerp() {}
+
+    // 
+    // Drawing code
+    //
 
     /**
      * Prepares for rendering a frame
@@ -149,10 +161,10 @@ export class Renderer {
     
     /**
      * Draws a line between two points of the specified color using Brenshams algorithm
-     *  @param x1 - The x coordinate of the line starting point
-     *  @param y1 - The y coordinate of the line starting point
-     *  @param x2 - The x coordinate of the line ending point
-     *  @param y2 - The y coordinate of the line ending point
+     *  @param x1 - The x screen coordinate of the line starting point
+     *  @param y1 - The y screen coordinate of the line starting point
+     *  @param x2 - The x screen coordinate of the line ending point
+     *  @param y2 - The y screen coordinate of the line ending point
      *  @param color - Color object defining color of line
      */
     drawLine(x1, y1, x2, y2, color) {
@@ -182,6 +194,10 @@ export class Renderer {
                 y1 += stepY;
             }
         }
+    }
+
+    drawTriangle(x1, y1, x2, y2, x3, y3) {
+
     }
 
     /**

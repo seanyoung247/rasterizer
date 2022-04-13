@@ -9,7 +9,7 @@ let mY = 0;
     window.requestAnimationFrame(frame);
 })();
 
-window.addEventListener('mousedown', e => {
+window.addEventListener('mousemove', e => {
     mX = e.offsetX;
     mY = e.offsetY;
 });
@@ -24,7 +24,7 @@ function frame() {
         }
     }
     
-    renderer.drawLine(100,100,mX,mY,new Color(RGBA(0,0,0,200));
+    renderer.drawLine(100,100,mX,mY,new Color(RGBA(0,0,0,200)));
         
     renderer.endFrame();
 
