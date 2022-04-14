@@ -49,39 +49,40 @@ export class Renderer {
 
     /**
      * Sets the colour of a single pixel to colour
-     * @param {Object} p - Point2D defining the pixel coordinates
+     * @param {Object} x - x coordinate of pixel
+     * @param {Object} y - y coordinate of pixel
      * @param {Object} color - Color object defining color of pixel
      */
-    putPixel(p, color) {
+    putPixel(x, y, color) {
         const width = this._canvas.clientWidth;
         const height = this._canvas.clientHeight;
-        if (this._inBounds(p.x, p.y, width, height)) {
-            const index = p.x + (p.y * width);
+        if (this._inBounds(x, y, width, height)) {
+            const index = x + (y * width);
             this._buffer.pixels[index] = color.color;
         }
     }
     
     /**
      * Draws a line between two points of the specified color using Brenshams algorithm
-     *  @param {Object} p1 - Point2D for line starting point
-     *  @param {Object} p2 - Point2D for line ending point
+     *  @param {Object} p0 - Point2D for line starting point
+     *  @param {Object} p1 - Point2D for line ending point
      *  @param color - Color object defining color of line
      */
-    drawLine(p1, p2, color) {
+    drawLine(p0, p1, color) {
         // Workout delta changes for each step
-        let deltaX = Math.abs(p2.x - p1.x);
-        let deltaY = Math.abs(p2.y - p1.y);
+        let deltaX = Math.abs(p1.x - p0.x);
+        let deltaY = Math.abs(p1.y - p0.y);
         // Step distance
-        let stepX = Math.sign(x2 - x1);
-        let stepY = Math.sign(y2 - y1);
+        let stepX = Math.sign(p1.x - p0.x);
+        let stepY = Math.sign(p1.y - p0.y);
         // Initialise step error to line slope
         let error = deltaX - deltaY;
         // Store current position
-        let x = p1.x;
-        let y = p1.y;
-        const eX = p2.x;
-        const eY = p2.y;
-        
+        let x = p0.x;
+        let y = p0.y;
+        const eX = p1.x;
+        const eY = p1.y;
+
         while (true) {
             this.putPixel(x, y, color);
             // Reached end point?
@@ -101,8 +102,20 @@ export class Renderer {
         }
     }
 
-    drawTriangle(x1, y1, x2, y2, x3, y3) {
-
+    /**
+     * 
+     * @param {Object} p0 Point2D of first corner
+     * @param {Object} p1 Point2D of second corner
+     * @param {Object} p2 Point2D of third corner
+     * @param {Object} color Color object to draw
+     * @param {Boolean} filled Should triangle be drawn as an outline or filled?
+     */
+    drawTriangle(p0, p1, p2, color, filled) {
+        //if (!filled) {
+            this.drawLine(p0, p1, color);
+            this.drawLine(p1, p2, color);
+            this.drawLine(p2, p0, color);
+        //}
     }
 
     /**

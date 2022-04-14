@@ -11,10 +11,10 @@ let mY = 0;
     window.requestAnimationFrame(frame);
 })();
 
-window.addEventListener('mousemove', e => {
-    mX = e.offsetX;
-    mY = e.offsetY;
-});
+// window.addEventListener('mousemove', e => {
+//     mX = e.offsetX;
+//     mY = e.offsetY;
+// });
 
 function frame() {
 
@@ -26,9 +26,11 @@ function frame() {
         }
     }
     
-    renderer.drawLine(100,100,mX,mY,new Color(RGBA(0,0,0,200)));
+    //renderer.drawLine(100,100,mX,mY,new Color(RGBA(0,0,0,200)));
+    
+    renderer.drawTriangle({x:100,y:100}, {x:150,y:150}, {x:10,y:100}, new Color(RGBA(0,0,0,200)), false);
         
     renderer.endFrame();
 
-    window.requestAnimationFrame(frame);
+    //window.requestAnimationFrame(frame);
 }
